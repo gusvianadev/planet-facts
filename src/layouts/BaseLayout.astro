@@ -1,0 +1,75 @@
+---
+import { ViewTransitions } from "astro:transitions";
+
+const planets = [
+	{
+		name: "Mercury",
+		color: "#DEF4FC",
+	},
+	{
+		name: "Venus",
+		color: "#F7CC7F",
+	},
+	{
+		name: "Earth",
+		color: "#545BFE",
+	},
+	{
+		name: "Mars",
+		color: "#FF6A45",
+	},
+	{
+		name: "Jupiter",
+		color: "#ECAD7A",
+	},
+	{
+		name: "Saturn",
+		color: "#FCCB6B",
+	},
+	{
+		name: "Uranus",
+		color: "#65F0D5",
+	},
+	{
+		name: "Neptune",
+		color: "#497EFA",
+	},
+];
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<ViewTransitions />
+		<title>Planet Facts</title>
+	</head>
+	<body>
+		<header class="bg-main">
+			<nav>
+				THE PLANETS
+				<ul class="hidden">
+					{
+						planets.map(({ name, color }, i) => {
+							return (
+								<li>
+									<a rel="prefetch">{name}</a>
+								</li>
+							);
+						})
+					}
+				</ul>
+			</nav>
+			<main transition:animate="slide">
+				<slot />
+			</main>
+		</header>
+		<style is:global>
+			* {
+				outline: 1px solid red;
+			}
+		</style>
+	</body>
+</html>
