@@ -40,7 +40,11 @@ import planets from "@/assets/data/planets.json";
 							>
 								a
 							</div>
-							<a class="h-fit" rel="prefetch">
+							<a
+								class="h-fit"
+								rel="prefetch"
+								href={`/${name.toLowerCase()}`}
+							>
 								{name}
 							</a>
 							<span class="ml-auto mr-0">></span>
