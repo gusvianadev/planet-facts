@@ -1,0 +1,77 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import planets from "@/assets/data/planets.json";
+import type Planet from "@/types/Planet";
+import iconSource from "@/assets/img/icon-source.svg";
+
+export async function getStaticPaths() {
+	return planets.map((props) => {
+		return {
+			params: {
+				planet: props.name.toLowerCase(),
+			},
+			props,
+		};
+	});
+}
+
+type Props = Planet;
+
+const { name, images, overview, rotation, revolution, radius, temperature } =
+	Astro.props;
+---
+
+<BaseLayout pageTitle={name}>
+	<div class="flex w-full">
+		<img
+			class="planet m-auto h-auto"
+			src={images.planet}
+			alt={`${name} planet image`}
+		/>
+	</div>
+	<h2 class="bold mb-6 text-center uppercase">{name}</h2>
+	<p class="mb-8 text-center leading-snug">{overview.content}</p>
+	<p class="mb-8 text-center opacity-50">
+		Source: <a
+			class="font-bold underline"
+			href={overview.source}
+			target="_blank">Wikipedia</a
+		>
+		<img class="ml-1 inline" src={iconSource.src} alt="" />
+	</p>
+	<div class="info-card">
+		<h4>rotation time</h4>
+		<p>{rotation}</p>
+	</div>
+	<div class="info-card">
+		<h4>revolution time</h4>
+		<p>{revolution}</p>
+	</div>
+	<div class="info-card">
+		<h4>radius</h4>
+		<p>{radius}</p>
+	</div>
+	<div class="info-card">
+		<h4>average temp.</h4>
+		<p>{temperature}</p>
+	</div>
+	<style>
+		.planet {
+			transform: scale(0.4);
+		}
+
+		.info-card {
+			@apply mb-2 flex justify-between border border-white border-opacity-20 px-6 py-3 uppercase;
+		}
+
+		.info-card h4 {
+			@apply opacity-50;
+		}
+
+		.info-card p {
+			@apply text-xl font-bold;
+
+			letter-spacing: -0.75px;
+		}
+	</style>
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import planets from "@/assets/data/planets.json";
+---
+
+<div class="flex-1">
+	<h1 class="pl-4 text-xl uppercase">The Planets</h1>
+</div>
+<div class="drawer drawer-end w-fit">
+	<input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+	<div class="drawer-content">
+		<label
+			for="my-drawer-4"
+			class="btn btn-square btn-ghost drawer-button z-20"
+		>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				class="inline-block h-5 w-5 stroke-current"
+				><path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M4 6h16M4 12h16M4 18h16"></path></svg
+			>
+		</label>
+	</div>
+	<div class="drawer-side z-10 bg-transparent">
+		<label for="my-drawer-4" class="drawer-overlay"></label>
+		<ul class="menu min-h-full w-80 bg-base p-4 text-white">
+			<!-- Sidebar content here -->
+			{
+				planets.map(({ name, color }) => {
+					return (
+						<li class="flex flex-row items-center">
+							<div
+								style={{
+									backgroundColor: color,
+								}}
+							>
+								a
+							</div>
+							<a class="h-fit" rel="prefetch">
+								{name}
+							</a>
+							<span class="ml-auto mr-0">></span>
+						</li>
+					);
+				})
+			}
+		</ul>
+	</div>
+</div>

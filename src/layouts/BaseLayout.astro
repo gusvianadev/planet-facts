@@ -1,74 +1,95 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { Navbar } from "@/components/index";
+import bg from "@/assets/img/background-stars.svg";
 
-const planets = [
-	{
-		name: "Mercury",
-		color: "#DEF4FC",
-	},
-	{
-		name: "Venus",
-		color: "#F7CC7F",
-	},
-	{
-		name: "Earth",
-		color: "#545BFE",
-	},
-	{
-		name: "Mars",
-		color: "#FF6A45",
-	},
-	{
-		name: "Jupiter",
-		color: "#ECAD7A",
-	},
-	{
-		name: "Saturn",
-		color: "#FCCB6B",
-	},
-	{
-		name: "Uranus",
-		color: "#65F0D5",
-	},
-	{
-		name: "Neptune",
-		color: "#497EFA",
-	},
-];
+const { pageTitle } = Astro.props;
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.png" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Antonio:wght@500&family=League+Spartan:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<ViewTransitions />
-		<title>Planet Facts</title>
+		<title>{pageTitle}</title>
 	</head>
-	<body>
-		<header class="bg-main">
-			<nav>
-				THE PLANETS
-				<ul class="hidden">
-					{
-						planets.map(({ name, color }, i) => {
-							return (
-								<li>
-									<a rel="prefetch">{name}</a>
-								</li>
-							);
-						})
-					}
-				</ul>
-			</nav>
-			<main transition:animate="slide">
-				<slot />
-			</main>
+	<body class="flex h-full w-full flex-col text-white">
+		<header class="navbar bg-transparent">
+			<Navbar />
 		</header>
-		<style is:global>
+		<div class="tabs">
+			<a class="tab tab-active tab-bordered">overview</a>
+			<a class="tab tab-bordered">structure</a>
+			<a class="tab tab-bordered">surface</a>
+		</div>
+		<main class="grow overflow-y-auto px-5" transition:animate="slide">
+			<slot />
+		</main>
+		<style is:global define:vars={{ bg: `url(${bg.src})` }}>
+			:root {
+				--base: #070724;
+			}
 			* {
-				outline: 1px solid red;
+				font-family: "Spartan", sans-serif;
+				font-size: 14px;
+				line-height: 25px;
+				font-weight: 400;
+			}
+
+			html {
+				height: 100vh;
+				width: 100%;
+				overflow: hidden;
+			}
+
+			body {
+				height: 100vh;
+				background-color: var(--base);
+				background-image: var(--bg);
+				background-size: cover;
+				overflow: hidden;
+			}
+
+			h1,
+			h2 {
+				font-family: "Antonio", sans-serif;
+			}
+
+			h1 {
+				font-size: 80px;
+				font-weight: 500;
+				line-height: 103px;
+			}
+
+			h2 {
+				font-size: 40px;
+				font-weight: 500;
+				line-height: 52px;
+				word-spacing: -1.5ch;
+			}
+
+			h3 {
+				font-size: 12px;
+				font-weight: 700;
+				line-height: 25px;
+				word-spacing: +2.6ch;
+			}
+
+			h4 {
+				font-size: 11px;
+				font-weight: 700;
+				line-height: 25px;
+				word-spacing: 1ch;
+			}
+
+			.tab {
+				@apply grow font-bold uppercase text-white text-opacity-50;
 			}
 		</style>
 	</body>
