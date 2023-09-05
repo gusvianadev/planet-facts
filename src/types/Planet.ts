@@ -1,5 +1,7 @@
-export default interface Planet {
+export type Planet = {
 	name: string;
+	color: string;
+	tabColor: string;
 	overview: {
 		content: string;
 		source: string;
@@ -21,4 +23,12 @@ export default interface Planet {
 		internal: string;
 		geology: string;
 	};
-}
+};
+
+export type LayoutProps = {
+	planet: Omit<Planet, "overview" | "structure" | "geology"> & {
+		content: string;
+		source: string;
+		type: "overview" | "structure" | "geology";
+	};
+};

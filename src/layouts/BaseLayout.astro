@@ -1,8 +1,26 @@
 ---
 import { Navbar } from "@/components/index";
 import bg from "@/assets/img/background-stars.svg";
+import { type LayoutProps } from "@/types/Planet";
+import iconSource from "@/assets/img/icon-source.svg";
+import { ViewTransitions } from "astro:transitions";
 
-const { pageTitle } = Astro.props;
+type Props = LayoutProps;
+
+const {
+	planet: {
+		name,
+		images,
+		rotation,
+		revolution,
+		content,
+		source,
+		radius,
+		temperature,
+		tabColor,
+		type,
+	},
+} = Astro.props;
 ---
 
 <html lang="en">
@@ -15,22 +33,96 @@ const { pageTitle } = Astro.props;
 			href="https://fonts.googleapis.com/css2?family=Antonio:wght@500&family=League+Spartan:wght@400;700&display=swap"
 			rel="stylesheet"
 		/>
+		<ViewTransitions />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
+		<title>{name}</title>
 	</head>
 	<body class="flex h-full w-full flex-col text-white">
-		<header class="navbar bg-transparent">
+		<header transition:persist class="navbar bg-transparent">
 			<Navbar />
 		</header>
-		<div class="tabs">
-			<a class="tab tab-active tab-bordered">overview</a>
-			<a class="tab tab-bordered">structure</a>
-			<a class="tab tab-bordered">surface</a>
+		<div class="tabs border border-x-0 border-y-white border-opacity-20">
+			<div
+				class:list={{
+					"tab-active": type === "overview",
+				}}
+				class="tab tab-bordered"
+			>
+				<a href={`/${name.toLowerCase()}/overview`}>overview</a>
+			</div>
+			<div
+				class:list={{
+					"tab-active": type === "structure",
+				}}
+				class="tab tab-bordered"
+			>
+				<a href={`/${name.toLowerCase()}/structure`}>structure</a>
+			</div>
+			<div
+				class:list={{
+					"tab-active": type === "geology",
+				}}
+				class="tab tab-bordered"
+			>
+				<a href={`/${name.toLowerCase()}/geology`}>surface</a>
+			</div>
 		</div>
 		<main class="grow overflow-y-auto px-5" transition:animate="slide">
-			<slot />
+			<div class="flex w-full">
+				<img
+					class="planet m-auto h-auto"
+					src={images.planet}
+					alt={`${name} planet image`}
+				/>
+			</div>
+			<h2 class="bold mb-6 text-center uppercase">{name}</h2>
+			<p class="mb-8 text-center leading-snug">{content}</p>
+			<p class="mb-8 text-center opacity-50">
+				Source: <a
+					class="font-bold underline"
+					href={source}
+					target="_blank">Wikipedia</a
+				>
+				<img class="ml-1 inline" src={iconSource.src} alt="" />
+			</p>
+			<div class="info-card">
+				<h4>rotation time</h4>
+				<p>{rotation}</p>
+			</div>
+			<div class="info-card">
+				<h4>revolution time</h4>
+				<p>{revolution}</p>
+			</div>
+			<div class="info-card">
+				<h4>radius</h4>
+				<p>{radius}</p>
+			</div>
+			<div class="info-card">
+				<h4>average temp.</h4>
+				<p>{temperature}</p>
+			</div>
+			<style>
+				.planet {
+					transform: scale(0.4);
+				}
+
+				.info-card {
+					@apply mb-2 flex justify-between border border-white border-opacity-20 px-6 py-3 uppercase;
+				}
+
+				.info-card h4 {
+					@apply opacity-50;
+				}
+
+				.info-card p {
+					@apply text-xl font-bold;
+
+					letter-spacing: -0.75px;
+				}
+			</style>
 		</main>
+		<style define:vars={{ bc: tabColor }}></style>
 		<style is:global define:vars={{ bg: `url(${bg.src})` }}>
 			:root {
 				--base: #070724;
@@ -89,7 +181,11 @@ const { pageTitle } = Astro.props;
 			}
 
 			.tab {
-				@apply grow font-bold uppercase text-white text-opacity-50;
+				@apply h-fit grow py-3  uppercase text-white text-opacity-50;
+			}
+
+			.tab a {
+				@apply font-bold;
 			}
 		</style>
 	</body>

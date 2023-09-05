@@ -1,15 +1,16 @@
 ---
 import planets from "@/assets/data/planets.json";
+import chevron from "@/assets/img/icon-chevron.svg";
 ---
 
 <div class="flex-1">
 	<h1 class="pl-4 text-xl uppercase">The Planets</h1>
 </div>
 <div class="drawer drawer-end w-fit">
-	<input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+	<input id="planet-menu" type="checkbox" class="drawer-toggle" />
 	<div class="drawer-content">
 		<label
-			for="my-drawer-4"
+			for="planet-menu"
 			class="btn btn-square btn-ghost drawer-button z-20"
 		>
 			<svg
@@ -25,29 +26,32 @@ import planets from "@/assets/data/planets.json";
 			>
 		</label>
 	</div>
-	<div class="drawer-side z-10 bg-transparent">
-		<label for="my-drawer-4" class="drawer-overlay"></label>
-		<ul class="menu min-h-full w-80 bg-base p-4 text-white">
-			<!-- Sidebar content here -->
+	<div
+		class="drawer-side z-10 bg-transparent"
+		style={{
+			height: "calc(100% - 56px)",
+			transform: "translateY(56px)",
+		}}
+	>
+		<ul class="menu min-h-full w-full bg-base p-4 text-white">
 			{
 				planets.map(({ name, color }) => {
 					return (
-						<li class="flex flex-row items-center">
-							<div
-								style={{
-									backgroundColor: color,
-								}}
-							>
-								a
-							</div>
+						<li>
 							<a
 								class="h-fit"
 								rel="prefetch"
-								href={`/${name.toLowerCase()}`}
+								href={`/${name.toLowerCase()}/overview`}
 							>
+								<div
+									style={{
+										backgroundColor: color,
+									}}
+									class="h-5 w-5 rounded-full"
+								/>
 								{name}
+								<img src={chevron.src} class="ml-auto mr-0" />
 							</a>
-							<span class="ml-auto mr-0">></span>
 						</li>
 					);
 				})
