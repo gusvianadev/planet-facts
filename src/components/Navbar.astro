@@ -1,6 +1,7 @@
 ---
 import planets from "@/assets/data/planets.json";
 import chevron from "@/assets/img/icon-chevron.svg";
+import burger from "@/assets/img/icon-hamburger.svg";
 ---
 
 <div class="flex-1">
@@ -13,34 +14,27 @@ import chevron from "@/assets/img/icon-chevron.svg";
 			for="planet-menu"
 			class="btn btn-square btn-ghost drawer-button z-20"
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				class="inline-block h-5 w-5 stroke-current"
-				><path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M4 6h16M4 12h16M4 18h16"></path></svg
-			>
+			<img src={burger.src} alt="burger menu icon" />
 		</label>
 	</div>
 	<div
 		transition:persist
 		class="drawer-side z-10 bg-transparent"
 		style={{
-			height: "calc(100% - 56px)",
-			transform: "translateY(56px)",
+			height: "calc(100% - 57px)",
+			transform: "translateY(57px)",
 		}}
 	>
 		<ul class="menu min-h-full w-full bg-base p-4 text-white">
 			{
 				planets.map(({ name, color }) => {
 					return (
-						<li>
+						<li class="px-2">
 							<a
-								class="h-fit"
+								class:list={{
+									"border-b-0": name === "Neptune",
+								}}
+								class="h-fit rounded-none border-b border-b-white border-opacity-20 px-0 py-6"
 								rel="prefetch"
 								href={`/${name.toLowerCase()}/overview`}
 							>
@@ -48,9 +42,11 @@ import chevron from "@/assets/img/icon-chevron.svg";
 									style={{
 										backgroundColor: color,
 									}}
-									class="h-5 w-5 rounded-full"
+									class="mr-3 h-5 w-5 rounded-full"
 								/>
-								{name}
+								<span class="text-lg font-bold uppercase">
+									{name}
+								</span>
 								<img src={chevron.src} class="ml-auto mr-0" />
 							</a>
 						</li>
