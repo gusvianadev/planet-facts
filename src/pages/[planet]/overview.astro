@@ -1,0 +1,28 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import planets from "@/assets/data/planets.json";
+import { type LayoutProps } from "@/types/Planet";
+
+export async function getStaticPaths() {
+	return planets.map(({ geology, structure, overview, ...props }) => {
+		const planet: LayoutProps["planet"] = {
+			...props,
+			content: overview.content,
+			source: overview.source,
+			type: "overview",
+		};
+		return {
+			params: {
+				planet: props.name.toLowerCase(),
+			},
+			props: planet,
+		};
+	});
+}
+
+type Props = LayoutProps["planet"];
+
+const planet = Astro.props;
+---
+
+<BaseLayout planet={planet} />
