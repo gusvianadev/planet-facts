@@ -7,6 +7,6 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
 	integrations: [prefetch(), tailwind()],
 	redirects: {
-		"/": "/earth",
+		"/": "/earth/overview",
 	},
 });
