@@ -49,7 +49,9 @@ const {
 				}}
 				class="tab tab-bordered"
 			>
-				<a href={`/${name.toLowerCase()}/overview`}>overview</a>
+				<a class="w-full" href={`/${name.toLowerCase()}/overview`}
+					>overview</a
+				>
 			</div>
 			<div
 				class:list={{
@@ -57,7 +59,9 @@ const {
 				}}
 				class="tab tab-bordered"
 			>
-				<a href={`/${name.toLowerCase()}/structure`}>structure</a>
+				<a class="w-full" href={`/${name.toLowerCase()}/structure`}
+					>structure</a
+				>
 			</div>
 			<div
 				class:list={{
@@ -65,7 +69,9 @@ const {
 				}}
 				class="tab tab-bordered"
 			>
-				<a href={`/${name.toLowerCase()}/geology`}>surface</a>
+				<a class="w-full" href={`/${name.toLowerCase()}/geology`}
+					>surface</a
+				>
 			</div>
 		</div>
 		<main class="grow overflow-y-auto px-5">
@@ -74,16 +80,17 @@ const {
 					type === "geology" ? (
 						<div class="relative m-auto h-auto">
 							<img
-								class="planet "
+								class="planet"
 								src={images.overview}
 								alt={`${name} planet image overview`}
 							/>
 							<img
-								class="planet absolute"
+								class="absolute"
 								style={{
-									scale: 0.3,
-									top: "10%",
-									left: "0",
+									scale: 0.15,
+									top: "50%",
+									right: "50%",
+									transform: "translate(336%, -200%)",
 								}}
 								src={images.geology}
 								alt={`${name} planet image geology`}
