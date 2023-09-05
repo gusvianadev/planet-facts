@@ -8,7 +8,7 @@ import chevron from "@/assets/img/icon-chevron.svg";
 </div>
 <div class="drawer drawer-end w-fit">
 	<input id="planet-menu" type="checkbox" class="drawer-toggle" />
-	<div class="drawer-content">
+	<div transition:persist class="drawer-content">
 		<label
 			for="planet-menu"
 			class="btn btn-square btn-ghost drawer-button z-20"
@@ -27,6 +27,7 @@ import chevron from "@/assets/img/icon-chevron.svg";
 		</label>
 	</div>
 	<div
+		transition:persist
 		class="drawer-side z-10 bg-transparent"
 		style={{
 			height: "calc(100% - 56px)",

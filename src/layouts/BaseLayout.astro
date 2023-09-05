@@ -39,7 +39,7 @@ const {
 		<title>{name}</title>
 	</head>
 	<body class="flex h-full w-full flex-col text-white">
-		<header transition:persist class="navbar bg-transparent">
+		<header class="navbar bg-transparent">
 			<Navbar />
 		</header>
 		<div class="tabs border border-x-0 border-y-white border-opacity-20">
@@ -68,16 +68,39 @@ const {
 				<a href={`/${name.toLowerCase()}/geology`}>surface</a>
 			</div>
 		</div>
-		<main class="grow overflow-y-auto px-5" transition:animate="slide">
-			<div class="flex w-full">
-				<img
-					class="planet m-auto h-auto"
-					src={images.planet}
-					alt={`${name} planet image`}
-				/>
+		<main class="grow overflow-y-auto px-5">
+			<div transition:animate="slide" class="flex w-full">
+				{
+					type === "geology" ? (
+						<div class="relative m-auto h-auto">
+							<img
+								class="planet "
+								src={images.overview}
+								alt={`${name} planet image overview`}
+							/>
+							<img
+								class="planet absolute"
+								style={{
+									scale: 0.3,
+									top: "10%",
+								}}
+								src={images.geology}
+								alt={`${name} planet image geology`}
+							/>
+						</div>
+					) : (
+						<img
+							class="planet m-auto h-auto"
+							src={images[type as keyof typeof images]}
+							alt={`${name} planet image`}
+						/>
+					)
+				}
 			</div>
 			<h2 class="bold mb-6 text-center uppercase">{name}</h2>
-			<p class="mb-8 text-center leading-snug">{content}</p>
+			<p transition:animate="slide" class="mb-8 text-center leading-snug">
+				{content}
+			</p>
 			<p class="mb-8 text-center opacity-50">
 				Source: <a
 					class="font-bold underline"
@@ -86,19 +109,31 @@ const {
 				>
 				<img class="ml-1 inline" src={iconSource.src} alt="" />
 			</p>
-			<div class="info-card">
+			<div
+				transition:persist
+				transition:name="rotation"
+				class="info-card"
+			>
 				<h4>rotation time</h4>
 				<p>{rotation}</p>
 			</div>
-			<div class="info-card">
+			<div
+				transition:persist
+				transition:name="revolution"
+				class="info-card"
+			>
 				<h4>revolution time</h4>
 				<p>{revolution}</p>
 			</div>
-			<div class="info-card">
+			<div transition:persist transition:name="radius" class="info-card">
 				<h4>radius</h4>
 				<p>{radius}</p>
 			</div>
-			<div class="info-card">
+			<div
+				transition:persist
+				transition:name="temperature"
+				class="info-card"
+			>
 				<h4>average temp.</h4>
 				<p>{temperature}</p>
 			</div>

@@ -19,8 +19,8 @@ export type Planet = {
 	radius: string;
 	temperature: string;
 	images: {
-		planet: string;
-		internal: string;
+		overview: string;
+		structure: string;
 		geology: string;
 	};
 };
