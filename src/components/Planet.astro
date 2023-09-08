@@ -1,0 +1,53 @@
+---
+import { type Planet, type LayoutProps } from "@/types/Planet";
+type Props = {
+	name: string;
+	type: LayoutProps["planet"]["type"];
+	images: Planet["images"];
+};
+
+const { type, images, name } = Astro.props;
+---
+
+<div class="m-auto p-20">
+	{
+		type === "geology" ? (
+			<div class="relative h-fit w-fit">
+				<img
+					class="planet"
+					src={images.overview}
+					alt={`${name} planet image overview`}
+				/>
+				<img
+					class="planet-geology absolute"
+					src={images.geology}
+					alt={`${name} planet image geology`}
+				/>
+			</div>
+		) : (
+			<img
+				class="planet"
+				src={images[type as keyof typeof images]}
+				alt={`${name} planet image`}
+			/>
+		)
+	}
+</div>
+<style
+	define:vars={{
+		"geology-top": name !== "Saturn" ? "95%" : "75%",
+		"geology-width": name !== "Saturn" ? "20%" : "15%",
+	}}
+>
+	.planet {
+		max-width: 500px;
+	}
+
+	.planet-geology {
+		left: 50%;
+		top: var(--geology-top);
+		transform: translateX(-50%);
+		height: auto;
+		width: var(--geology-width);
+	}
+</style>

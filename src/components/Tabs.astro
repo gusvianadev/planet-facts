@@ -1,0 +1,52 @@
+---
+import { type LayoutProps } from "@/types/Planet";
+type Props = {
+	name: string;
+	type: LayoutProps["planet"]["type"];
+	tabColor: string;
+};
+
+const { type, name, tabColor } = Astro.props;
+const tabs = [
+	{
+		path: "overview",
+		label: "overview",
+	},
+	{
+		path: "structure",
+		label: "internal structure",
+	},
+	{
+		path: "geology",
+		label: "surface geology",
+	},
+];
+---
+
+<div class="hidden h-full w-1/2 md:block md:pl-10 xl:h-fit xl:w-full xl:pl-0">
+	{
+		tabs.map(({ path, label }, i) => {
+			return (
+				<div
+					class:list={{
+						active: type === path,
+					}}
+					class="mb-3 w-full border border-white border-opacity-20 px-5 py-3 uppercase"
+				>
+					<a
+						class="flex w-full gap-3"
+						href={`/${name.toLowerCase()}/${path}`}
+					>
+						<span class="font-bold opacity-50">0{i + 1}</span>
+						<span class="font-bold">{label}</span>
+					</a>
+				</div>
+			);
+		})
+	}
+	<style define:vars={{ bc: tabColor }}>
+		.active {
+			background-color: hsl(var(--bc));
+		}
+	</style>
+</div>

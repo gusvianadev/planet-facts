@@ -1,0 +1,58 @@
+:root {
+	--base: #070724;
+}
+
+* {
+	font-family: "Spartan", sans-serif;
+	font-size: 14px;
+	line-height: 25px;
+	font-weight: 400;
+}
+
+main {
+	max-width: 1440px;
+}
+
+html {
+	height: 100vh;
+	width: 100%;
+	overflow: hidden;
+}
+
+body {
+	height: 100vh;
+	background-color: var(--base);
+	background-image: url("/img/background-stars.svg");
+	background-size: cover;
+}
+
+h1,
+h2 {
+	font-family: "Antonio", sans-serif;
+}
+
+h1 {
+	font-size: 80px;
+	font-weight: 500;
+	line-height: 103px;
+}
+
+h2 {
+	font-size: 40px;
+	font-weight: 500;
+	line-height: 52px;
+	word-spacing: -1.5ch;
+}
+
+h3 {
+	font-size: 12px;
+	font-weight: 700;
+	line-height: 25px;
+	word-spacing: +2.6ch;
+}
+
+h4 {
+	font-weight: 700;
+	line-height: 25px;
+	word-spacing: 1ch;
+}

@@ -1,0 +1,47 @@
+---
+import { type LayoutProps } from "@/types/Planet";
+type Props = {
+	name: string;
+	type: LayoutProps["planet"]["type"];
+	tabColor: string;
+};
+
+const { type, name, tabColor } = Astro.props;
+---
+
+<div class="tabs w-full md:hidden">
+	<div
+		class:list={{
+			"tab-active": type === "overview",
+		}}
+		class="tab tab-bordered"
+	>
+		<a class="w-full" href={`/${name.toLowerCase()}/overview`}>overview</a>
+	</div>
+	<div
+		class:list={{
+			"tab-active": type === "structure",
+		}}
+		class="tab tab-bordered"
+	>
+		<a class="w-full" href={`/${name.toLowerCase()}/structure`}>structure</a
+		>
+	</div>
+	<div
+		class:list={{
+			"tab-active": type === "geology",
+		}}
+		class="tab tab-bordered"
+	>
+		<a class="w-full" href={`/${name.toLowerCase()}/geology`}>surface</a>
+	</div>
+	<style define:vars={{ bc: tabColor }}>
+		.tab {
+			@apply h-fit grow py-3  uppercase text-white text-opacity-50;
+		}
+
+		.tab a {
+			@apply font-bold;
+		}
+	</style>
+</div>
