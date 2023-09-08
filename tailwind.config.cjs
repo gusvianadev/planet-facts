@@ -6,6 +6,9 @@ module.exports = {
 			backgroundColor: {
 				base: "var(--base)",
 			},
+			scale: {
+				"surface-base": "0.40",
+			},
 		},
 	},
 	plugins: [require("daisyui")],

@@ -4,10 +4,14 @@ import chevron from "@/assets/img/icon-chevron.svg";
 import burger from "@/assets/img/icon-hamburger.svg";
 ---
 
-<div class="flex-1">
-	<h1 class="pl-4 text-xl uppercase">The Planets</h1>
+<div class="flex-1 md:w-full md:py-9 xl:ml-0 xl:mr-auto xl:w-fit">
+	<h1
+		class="pl-4 text-xl uppercase md:w-full md:pl-0 md:text-center md:text-3xl xl:w-fit"
+	>
+		The Planets
+	</h1>
 </div>
-<div class="drawer drawer-end w-fit">
+<div class="drawer drawer-end w-fit md:hidden">
 	<input id="planet-menu" type="checkbox" class="drawer-toggle" />
 	<div transition:persist class="drawer-content">
 		<label
@@ -56,3 +60,20 @@ import burger from "@/assets/img/icon-hamburger.svg";
 		</ul>
 	</div>
 </div>
+<ul class="hidden w-full justify-evenly md:flex xl:h-full xl:w-fit xl:gap-5">
+	{
+		planets.map(({ name }) => {
+			return (
+				<li class="h-full px-2">
+					<a
+						class="block flex h-full items-center text-lg font-bold uppercase"
+						rel="prefetch"
+						href={`/${name.toLowerCase()}/overview`}
+					>
+						{name}
+					</a>
+				</li>
+			);
+		})
+	}
+</ul>

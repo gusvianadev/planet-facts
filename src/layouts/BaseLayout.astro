@@ -1,9 +1,9 @@
 ---
-import { Navbar } from "@/components/index";
-import bg from "@/assets/img/background-stars.svg";
+import { Navbar, Tabs, TabsMobile, Planet } from "@/components/index";
 import { type LayoutProps } from "@/types/Planet";
 import iconSource from "@/assets/img/icon-source.svg";
 import { ViewTransitions } from "astro:transitions";
+import "@/styles/global.css";
 
 type Props = LayoutProps;
 
@@ -38,120 +38,82 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<title>{name}</title>
 	</head>
-	<body class="flex h-full w-full flex-col text-white">
-		<header class="navbar bg-transparent">
+	<body
+		class="flex h-full w-full flex-col items-center overflow-y-hidden text-white xl:overflow-y-auto"
+	>
+		<header
+			class="navbar border-b border-b-white border-opacity-20 bg-transparent md:block md:pb-9 xl:sticky xl:top-0 xl:flex xl:p-0 xl:px-5 xl:pb-0"
+		>
 			<Navbar />
 		</header>
-		<div class="tabs border-t border-t-white border-opacity-20">
+		<TabsMobile type={type} name={name} tabColor={tabColor} />
+		<main
+			class="flex grow flex-col justify-between overflow-y-auto px-5 md:gap-5 xl:overflow-y-visible"
+		>
 			<div
-				class:list={{
-					"tab-active": type === "overview",
-				}}
-				class="tab tab-bordered"
+				class="flex grow flex-col justify-between xl:my-auto xl:grow-0 xl:flex-row"
 			>
-				<a class="w-full" href={`/${name.toLowerCase()}/overview`}
-					>overview</a
+				<div class="flex w-full xl:w-1/2">
+					<Planet images={images} name={name} type={type} />
+				</div>
+				<div
+					class="md:mb-0 md:mt-auto md:flex md:flex-col md:gap-5 xl:mt-0 xl:w-1/3 xl:justify-center"
 				>
-			</div>
-			<div
-				class:list={{
-					"tab-active": type === "structure",
-				}}
-				class="tab tab-bordered"
-			>
-				<a class="w-full" href={`/${name.toLowerCase()}/structure`}
-					>structure</a
-				>
-			</div>
-			<div
-				class:list={{
-					"tab-active": type === "geology",
-				}}
-				class="tab tab-bordered"
-			>
-				<a class="w-full" href={`/${name.toLowerCase()}/geology`}
-					>surface</a
-				>
-			</div>
-		</div>
-		<main class="grow overflow-y-auto px-5">
-			<div transition:animate="slide" class="flex w-full">
-				{
-					type === "geology" ? (
-						<div class="relative m-auto h-auto">
-							<img
-								class="planet"
-								src={images.overview}
-								alt={`${name} planet image overview`}
-							/>
-							<img
-								class="absolute"
-								style={{
-									scale: 0.15,
-									top: "50%",
-									right: "50%",
-									transform: "translate(336%, -200%)",
-								}}
-								src={images.geology}
-								alt={`${name} planet image geology`}
-							/>
+					<div class="md:flex md:flex-wrap">
+						<h2
+							class="mb-6 text-center uppercase md:w-full md:text-left xl:w-fit xl:text-8xl"
+						>
+							{name}
+						</h2>
+						<div class="md:w-1/2 xl:w-full">
+							<p
+								transition:animate="slide"
+								class="mb-8 text-center leading-snug md:text-left"
+							>
+								{content}
+							</p>
+							<p class="mb-8 text-center opacity-50 md:text-left">
+								Source: <a
+									class="font-bold underline"
+									href={source}
+									target="_blank">Wikipedia</a
+								>
+								<img
+									class="ml-1 inline"
+									src={iconSource.src}
+									alt=""
+								/>
+							</p>
 						</div>
-					) : (
-						<img
-							class="planet m-auto h-auto"
-							src={images[type as keyof typeof images]}
-							alt={`${name} planet image`}
-						/>
-					)
-				}
-			</div>
-			<h2 class="bold mb-6 text-center uppercase">{name}</h2>
-			<p transition:animate="slide" class="mb-8 text-center leading-snug">
-				{content}
-			</p>
-			<p class="mb-8 text-center opacity-50">
-				Source: <a
-					class="font-bold underline"
-					href={source}
-					target="_blank">Wikipedia</a
-				>
-				<img class="ml-1 inline" src={iconSource.src} alt="" />
-			</p>
-			<div
-				transition:persist
-				transition:name="rotation"
-				class="info-card"
-			>
-				<h4>rotation time</h4>
-				<p>{rotation}</p>
+						<Tabs type={type} name={name} tabColor={tabColor} />
+					</div>
+				</div>
 			</div>
 			<div
 				transition:persist
-				transition:name="revolution"
-				class="info-card"
+				transition:name="info-rail"
+				class="w-full md:flex md:gap-5 xl:mb-0 xl:mt-auto"
 			>
-				<h4>revolution time</h4>
-				<p>{revolution}</p>
-			</div>
-			<div transition:persist transition:name="radius" class="info-card">
-				<h4>radius</h4>
-				<p>{radius}</p>
-			</div>
-			<div
-				transition:persist
-				transition:name="temperature"
-				class="info-card"
-			>
-				<h4>average temp.</h4>
-				<p>{temperature}</p>
+				<div class="info-card">
+					<h4>rotation time</h4>
+					<p>{rotation}</p>
+				</div>
+				<div class="info-card">
+					<h4>revolution time</h4>
+					<p>{revolution}</p>
+				</div>
+				<div class="info-card">
+					<h4>radius</h4>
+					<p>{radius}</p>
+				</div>
+				<div class="info-card">
+					<h4>average temp.</h4>
+					<p>{temperature}</p>
+				</div>
 			</div>
 			<style>
-				.planet {
-					transform: scale(0.4);
-				}
-
 				.info-card {
-					@apply mb-2 flex justify-between border border-white border-opacity-20 px-6 py-3 uppercase;
+					@apply mb-2 flex grow justify-between border border-white border-opacity-20 px-6 py-3 uppercase md:block md:text-start md:text-xs xl:py-5;
 				}
 
 				.info-card h4 {
@@ -159,77 +121,11 @@ const {
 				}
 
 				.info-card p {
-					@apply text-xl font-bold;
+					@apply text-xl font-bold md:text-2xl xl:text-4xl;
 
-					letter-spacing: -0.75px;
+					letter-spacing: -0.9px;
 				}
 			</style>
 		</main>
-		<style define:vars={{ bc: tabColor }}></style>
-		<style is:global define:vars={{ bg: `url(${bg.src})` }}>
-			:root {
-				--base: #070724;
-			}
-			* {
-				font-family: "Spartan", sans-serif;
-				font-size: 14px;
-				line-height: 25px;
-				font-weight: 400;
-			}
-
-			html {
-				height: 100vh;
-				width: 100%;
-				overflow: hidden;
-			}
-
-			body {
-				height: 100vh;
-				background-color: var(--base);
-				background-image: var(--bg);
-				background-size: cover;
-				overflow: hidden;
-			}
-
-			h1,
-			h2 {
-				font-family: "Antonio", sans-serif;
-			}
-
-			h1 {
-				font-size: 80px;
-				font-weight: 500;
-				line-height: 103px;
-			}
-
-			h2 {
-				font-size: 40px;
-				font-weight: 500;
-				line-height: 52px;
-				word-spacing: -1.5ch;
-			}
-
-			h3 {
-				font-size: 12px;
-				font-weight: 700;
-				line-height: 25px;
-				word-spacing: +2.6ch;
-			}
-
-			h4 {
-				font-size: 11px;
-				font-weight: 700;
-				line-height: 25px;
-				word-spacing: 1ch;
-			}
-
-			.tab {
-				@apply h-fit grow py-3  uppercase text-white text-opacity-50;
-			}
-
-			.tab a {
-				@apply font-bold;
-			}
-		</style>
 	</body>
 </html>
