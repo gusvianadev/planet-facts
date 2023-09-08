@@ -14,7 +14,6 @@ const { type, images, name } = Astro.props;
 		type === "geology" ? (
 			<div class="relative h-fit w-fit">
 				<img
-					class="planet"
 					src={images.overview}
 					alt={`${name} planet image overview`}
 				/>
@@ -39,10 +38,6 @@ const { type, images, name } = Astro.props;
 		"geology-width": name !== "Saturn" ? "20%" : "15%",
 	}}
 >
-	.planet {
-		max-width: 500px;
-	}
-
 	.planet-geology {
 		left: 50%;
 		top: var(--geology-top);
